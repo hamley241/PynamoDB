@@ -232,7 +232,7 @@ class Model(with_metaclass(MetaModel)):
     _throttle = NoThrottle()
     DoesNotExist = DoesNotExist
 
-    def __init__(self, hash_key=None, range_key=None, **attrs):
+    def __init__(self, hash_key=None, range_key=None,**attrs):
         """
         :param hash_key: Required. The hash key for this object.
         :param range_key: Only required if the table has a range key attribute.
@@ -1167,8 +1167,9 @@ class Model(with_metaclass(MetaModel)):
                 See https://pynamodb.readthedocs.io/en/latest/release_notes.html"""
             )
         if cls._connection is None:
+            print "Making a connection for {}".format(cls.Meta.table_name)
             cls._connection = TableConnection(cls.Meta.table_name, region=cls.Meta.region, host=cls.Meta.host,
-                                              session_cls=cls.Meta.session_cls)
+                                              session_cls=cls.Meta.session_cls, session=cls.Meta.session)
         return cls._connection
 
     def _deserialize(self, attrs):

@@ -178,10 +178,10 @@ class Connection(object):
     A higher level abstraction over botocore
     """
 
-    def __init__(self, region=None, host=None, session_cls=None):
+    def __init__(self, region=None, host=None, session_cls=None, session=None):
         self._tables = {}
         self.host = host
-        self._session = None
+        self._session = session
         self._requests_session = None
         self._client = None
         if region:
